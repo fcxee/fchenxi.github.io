@@ -1,0 +1,555 @@
+<title>Chenxi</title>
+<style>
+  /* ─── Google Fonts ─── */
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400&family=DM+Sans:wght@400;500&display=swap');
+
+  /* ─── Design tokens · light (default) ─── */
+  :root {
+    --bg:          #F5F4F0;
+    --bg-raised:   #ECEAE5;
+    --text:        #1A1918;
+    --muted:       #6C6560;
+    --accent:      #7A6F40;
+    --green:       #2B4A3E;
+    --border:      #CCCAC2;
+    --nav-bg:      rgba(245, 244, 240, 0.92);
+
+    --f-display: 'Cormorant Garamond', 'Times New Roman', Georgia, serif;
+    --f-body:    'Source Serif 4', Georgia, serif;
+    --f-ui:      'DM Sans', system-ui, sans-serif;
+  }
+
+  /* ─── Dark (system) ─── */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg:        #141311;
+      --bg-raised: #1E1D1A;
+      --text:      #EFECE5;
+      --muted:     #978E84;
+      --accent:    #C8B470;
+      --green:     #5B9880;
+      --border:    #2B2A27;
+      --nav-bg:    rgba(20, 19, 17, 0.92);
+    }
+  }
+
+  /* ─── Dark (explicit) ─── */
+  :root[data-theme="dark"] {
+    --bg:        #141311;
+    --bg-raised: #1E1D1A;
+    --text:      #EFECE5;
+    --muted:     #978E84;
+    --accent:    #C8B470;
+    --green:     #5B9880;
+    --border:    #2B2A27;
+    --nav-bg:    rgba(20, 19, 17, 0.92);
+  }
+
+  /* ─── Reset ─── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--f-body);
+    font-size: 1.0625rem;
+    line-height: 1.75;
+  }
+
+  /* ─── Nav ─── */
+  nav {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2.5rem;
+    background: var(--nav-bg);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-name {
+    font-family: var(--f-ui);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--f-ui);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.18s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ─── Main column ─── */
+  .col {
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 0 2.25rem;
+  }
+
+  /* ─── Hero ─── */
+  #hero {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 5rem 2.25rem 6rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--f-ui);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 2.25rem;
+  }
+
+  .hero-thesis {
+    font-family: var(--f-display);
+    font-size: clamp(2rem, 5.2vw, 4.25rem);
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.17;
+    color: var(--text);
+    text-wrap: balance;
+    max-width: 840px;
+  }
+
+  .hero-rule {
+    width: 2.25rem;
+    height: 2px;
+    background: var(--accent);
+    margin: 2.75rem 0;
+    flex-shrink: 0;
+  }
+
+  .hero-ident {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .hero-name {
+    font-family: var(--f-display);
+    font-size: 1.6rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--text);
+  }
+
+  .hero-role {
+    font-family: var(--f-ui);
+    font-size: 0.85rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  /* ─── Sections ─── */
+  section {
+    border-top: 1px solid var(--border);
+    padding: 5.5rem 0;
+  }
+
+  .section-label {
+    font-family: var(--f-ui);
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 2rem;
+  }
+
+  h2 {
+    font-family: var(--f-display);
+    font-size: clamp(1.7rem, 2.8vw, 2.2rem);
+    font-weight: 400;
+    line-height: 1.25;
+    text-wrap: balance;
+    margin-bottom: 1.5rem;
+  }
+
+  .body-text {
+    color: var(--muted);
+    max-width: 58ch;
+  }
+
+  .body-text + .body-text { margin-top: 1rem; }
+
+  /* ─── Research themes ─── */
+  .themes {
+    margin-top: 3.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .theme {
+    display: grid;
+    grid-template-columns: 10rem 1fr;
+    gap: 0 2rem;
+    padding: 2.25rem 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+
+  .theme-tag {
+    font-family: var(--f-ui);
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--green);
+    padding-top: 0.25rem;
+    line-height: 1.4;
+  }
+
+  .theme-body {}
+
+  .theme-title {
+    font-family: var(--f-display);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+
+  .theme-desc {
+    font-size: 0.9375rem;
+    color: var(--muted);
+    max-width: 52ch;
+  }
+
+  /* ─── Work / publications ─── */
+  .work-list {
+    margin-top: 3.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .work-item {
+    padding: 2.25rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .work-badge {
+    display: inline-block;
+    font-family: var(--f-ui);
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--bg);
+    background: var(--green);
+    padding: 0.18em 0.6em 0.15em;
+    border-radius: 2px;
+    margin-bottom: 0.75rem;
+  }
+
+  .work-badge.review { background: var(--accent); }
+
+  .work-title {
+    font-family: var(--f-display);
+    font-size: 1.1rem;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--text);
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+  }
+
+  .work-desc {
+    font-size: 0.9rem;
+    color: var(--muted);
+    max-width: 58ch;
+  }
+
+  /* ─── Contact ─── */
+  .contact-items {
+    margin-top: 2.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .contact-row {
+    display: flex;
+    align-items: baseline;
+    gap: 1.25rem;
+  }
+
+  .contact-label {
+    font-family: var(--f-ui);
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    min-width: 5rem;
+    flex-shrink: 0;
+  }
+
+  .contact-val {
+    font-family: var(--f-body);
+    font-size: 1rem;
+    color: var(--text);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+    transition: border-color 0.18s, color 0.18s;
+  }
+
+  .contact-val:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  /* ─── Footer ─── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 1.75rem 0 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-copy {
+    font-family: var(--f-ui);
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  .footer-deploy {
+    font-family: var(--f-ui);
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-align: right;
+    max-width: 32ch;
+    line-height: 1.6;
+  }
+
+  .footer-deploy code {
+    font-family: 'Courier New', monospace;
+    font-size: 0.68rem;
+    background: var(--bg-raised);
+    padding: 0.1em 0.35em;
+    border-radius: 2px;
+    color: var(--accent);
+  }
+
+  /* ─── Focus ─── */
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* ─── Reduced motion ─── */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+
+  /* ─── Narrow screens ─── */
+  @media (max-width: 600px) {
+    nav { padding: 0.9rem 1.25rem; }
+    .nav-links { gap: 1.25rem; }
+    #hero { padding: 5rem 1.25rem 4.5rem; }
+    .col { padding: 0 1.25rem; }
+    section { padding: 4rem 0; }
+    .theme {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+    footer { flex-direction: column; }
+    .footer-deploy { text-align: left; }
+  }
+</style>
+
+<!-- ─── Navigation ─── -->
+<nav>
+  <a class="nav-name" href="#hero">Chenxi</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#publications">Work</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ─── Hero ─── -->
+<section id="hero" aria-label="Introduction">
+  <p class="hero-eyebrow">Soil Ecology &amp; Biogeochemistry</p>
+  <h1 class="hero-thesis">
+    Whether soil carbon accelerates warming or resists it depends on biological mechanisms we are only beginning to quantify at scale.
+  </h1>
+  <div class="hero-rule" aria-hidden="true"></div>
+  <div class="hero-ident">
+    <span class="hero-name">Chenxi</span>
+    <span class="hero-role">Soil Ecologist &amp; Biogeochemist</span>
+  </div>
+</section>
+
+<!-- ─── About ─── -->
+<section id="about">
+  <div class="col">
+    <p class="section-label">About</p>
+    <h2>Studying the carbon beneath our feet</h2>
+    <p class="body-text">
+      I am a soil ecologist and biogeochemist whose research centers on how soil organic carbon is decomposed, stabilized, and ultimately lost to the atmosphere. My work spans four modes of inquiry: field measurements in diverse ecosystems, controlled laboratory incubations, process-based modeling, and global-scale data synthesis.
+    </p>
+    <p class="body-text">
+      A unifying thread runs through all of it — understanding the temperature sensitivity of soil carbon turnover, and what that sensitivity means for Earth's climate future. Microbial physiology, mineral associations, and organic matter chemistry all shape the answer in ways that current Earth system models have yet to fully capture.
+    </p>
+  </div>
+</section>
+
+<!-- ─── Research ─── -->
+<section id="research">
+  <div class="col">
+    <p class="section-label">Research</p>
+    <h2>Three interlocking problems</h2>
+    <p class="body-text">
+      My research program links microbial ecology to global biogeochemistry through the lens of temperature — asking how warming reshapes the organisms that process soil carbon, and how those changes propagate to the climate system.
+    </p>
+
+    <div class="themes" role="list">
+      <article class="theme" role="listitem">
+        <span class="theme-tag">Carbon Dynamics</span>
+        <div class="theme-body">
+          <h3 class="theme-title">Temperature Sensitivity of SOC Decomposition</h3>
+          <p class="theme-desc">
+            How strongly does decomposition respond to warming — and why does that sensitivity differ across soils, depths, and climates? I combine incubation experiments with Arrhenius-based and enzyme-kinetic frameworks to resolve the drivers of intrinsic Q₁₀ variability at the global scale.
+          </p>
+        </div>
+      </article>
+
+      <article class="theme" role="listitem">
+        <span class="theme-tag">Microbial Ecology</span>
+        <div class="theme-body">
+          <h3 class="theme-title">Microbial Carbon Use Efficiency &amp; Stabilization</h3>
+          <p class="theme-desc">
+            The proportion of carbon that microbes retain versus respire — carbon use efficiency — controls how much organic matter persists as mineral-associated organic carbon (MAOC). I investigate how warming, substrate quality, and community composition shift CUE, and how homeoviscous adaptation modulates microbial responses over time.
+          </p>
+        </div>
+      </article>
+
+      <article class="theme" role="listitem">
+        <span class="theme-tag">Climate Modeling</span>
+        <div class="theme-body">
+          <h3 class="theme-title">Soil Carbon Feedbacks in Earth System Models</h3>
+          <p class="theme-desc">
+            A substantial fraction of uncertainty in future SOC projections traces back to how ESMs parameterize temperature sensitivity. Through global data synthesis and sensitivity analysis, I work to quantify that uncertainty and evaluate how alternative model structures alter long-term climate feedback estimates.
+          </p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Publications / Work ─── -->
+<section id="publications">
+  <div class="col">
+    <p class="section-label">Selected Work</p>
+    <h2>Recent projects &amp; contributions</h2>
+    <p class="body-text">
+      Manuscripts, reviews, and ongoing synthesis work. Please reach out for preprints or collaboration.
+    </p>
+
+    <div class="work-list">
+      <article class="work-item">
+        <span class="work-badge">Manuscript in preparation</span>
+        <p class="work-title">
+          Intrinsic Temperature Sensitivity of Soil Organic Carbon Mineralization Across Global Ecosystems: Patterns, Drivers, and Implications for Climate Feedback
+        </p>
+        <p class="work-desc">
+          A global synthesis examining how ecosystem type, soil properties, and microbial community structure govern the intrinsic temperature sensitivity of SOC mineralization. Integrates the Y-A-S framework, CUE dynamics, MAOC formation, and homeoviscous adaptation alongside evidence on biochar amendments and management strategies for SOC preservation.
+        </p>
+      </article>
+
+      <article class="work-item">
+        <span class="work-badge">Synthesis</span>
+        <p class="work-title">
+          Attributing SOC Projection Uncertainty to ESM Temperature Sensitivity Functions
+        </p>
+        <p class="work-desc">
+          A focused literature analysis quantifying what fraction of inter-model spread in soil carbon projections originates in temperature sensitivity parameterizations. Key inputs: Todd-Brown et al. (2013–2018), Huang et al. (2018) Sobol sensitivity indices, and Varney et al. (2020, 2024).
+        </p>
+      </article>
+
+      <article class="work-item">
+        <span class="work-badge review">Peer Review</span>
+        <p class="work-title">
+          Reviewer — Remote Sensing of Environment
+        </p>
+        <p class="work-desc">
+          Peer review of a manuscript on automated methane plume retrieval using hyperspectral satellite imagery, with suggested improvements grounded in the Roger et al. (2024) SWIR matched-filter approach.
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Contact ─── -->
+<section id="contact">
+  <div class="col">
+    <p class="section-label">Contact</p>
+    <h2>Let's connect</h2>
+    <p class="body-text">
+      I welcome inquiries about collaboration, data sharing, or research discussions — particularly on soil carbon cycling, ESM benchmarking, and field-to-model integration.
+    </p>
+
+    <div class="contact-items">
+      <div class="contact-row">
+        <span class="contact-label">Email</span>
+        <!-- Replace with your institutional email if preferred -->
+        <a class="contact-val" href="mailto:fchenxi369@gmail.com">fchenxi369@gmail.com</a>
+      </div>
+      <div class="contact-row">
+        <span class="contact-label">GitHub</span>
+        <!-- Replace YOUR_USERNAME with your GitHub handle -->
+        <a class="contact-val" href="https://github.com/YOUR_USERNAME" target="_blank" rel="noopener">github.com/YOUR_USERNAME</a>
+      </div>
+      <div class="contact-row">
+        <span class="contact-label">Scholar</span>
+        <!-- Replace YOUR_PROFILE_ID with your Google Scholar profile link -->
+        <a class="contact-val" href="https://scholar.google.com/citations?user=YOUR_PROFILE_ID" target="_blank" rel="noopener">Google Scholar</a>
+      </div>
+      <div class="contact-row">
+        <span class="contact-label">ORCID</span>
+        <!-- Replace 0000-0000-0000-0000 with your ORCID -->
+        <a class="contact-val" href="https://orcid.org/0000-0000-0000-0000" target="_blank" rel="noopener">0000-0000-0000-0000</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Footer ─── -->
+<footer>
+  <div class="col" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem; width:100%;">
+    <p class="footer-copy">&copy; 2026 Chenxi</p>
+    <p class="footer-deploy">
+      Deploy to GitHub Pages: create a repo named <code>YOUR_USERNAME.github.io</code>,
+      add this file as <code>index.html</code>, and push — your site goes live at
+      <code>https://YOUR_USERNAME.github.io</code>.
+    </p>
+  </div>
+</footer>

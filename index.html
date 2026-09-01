@@ -11,7 +11,6 @@
     --accent:    #2B4A3E;
     --border:    #E4E2DC;
     --link:      #2B4A3E;
-
     --f-serif: 'Crimson Pro', Georgia, serif;
     --f-sans:  'Inter', system-ui, sans-serif;
   }
@@ -39,7 +38,6 @@
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
 
   body {
     background: var(--bg);
@@ -49,11 +47,7 @@
     line-height: 1.7;
   }
 
-  a {
-    color: var(--link);
-    text-decoration: none;
-  }
-
+  a { color: var(--link); text-decoration: none; }
   a:hover { text-decoration: underline; }
 
   /* ── Nav ── */
@@ -75,6 +69,8 @@
     font-size: 1.1rem;
     font-weight: 600;
     color: var(--text);
+    cursor: pointer;
+    text-decoration: none;
   }
 
   .nav-links {
@@ -88,18 +84,24 @@
     font-size: 0.8125rem;
     color: var(--muted);
     transition: color 0.15s;
-  }
-
-  .nav-links a:hover {
-    color: var(--accent);
+    cursor: pointer;
     text-decoration: none;
   }
 
+  .nav-links a:hover { color: var(--accent); }
+
+  .nav-links a.active {
+    color: var(--text);
+    font-weight: 500;
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 2px;
+  }
+
   .nav-cv {
-    font-size: 0.75rem;
+    font-size: 0.75rem !important;
     border: 1px solid var(--accent);
     color: var(--accent) !important;
-    padding: 0.3em 0.85em;
+    padding: 0.3em 0.85em !important;
     border-radius: 3px;
     transition: background 0.15s !important;
   }
@@ -107,16 +109,30 @@
   .nav-cv:hover {
     background: var(--accent);
     color: var(--bg) !important;
+    text-decoration: none !important;
   }
 
-  /* ── Page shell ── */
-  .page {
+  /* ── Page views ── */
+  .page-view {
+    display: none;
     max-width: 780px;
     margin: 0 auto;
     padding: 4rem 2rem 6rem;
+    animation: fadein 0.18s ease;
   }
 
-  /* ── Hero ── */
+  .page-view.active { display: block; }
+
+  @keyframes fadein {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    @keyframes fadein { from { opacity: 1; } to { opacity: 1; } }
+  }
+
+  /* ── Hero (About page) ── */
   .hero {
     display: grid;
     grid-template-columns: 1fr 168px;
@@ -172,19 +188,14 @@
   }
 
   /* Profile photo */
-  .photo-wrap {
-    display: flex;
-    justify-content: flex-end;
-  }
+  .photo-wrap { display: flex; justify-content: flex-end; }
 
   .photo {
     width: 148px;
     height: 148px;
     border-radius: 50%;
-    object-fit: cover;
     border: 3px solid var(--border);
     background: var(--bg-soft);
-    /* Placeholder gradient shown when no real photo is set */
     background-image: linear-gradient(135deg, var(--bg-soft) 0%, var(--border) 100%);
     display: flex;
     align-items: center;
@@ -201,11 +212,7 @@
     line-height: 1;
   }
 
-  /* ── Section ── */
-  section {
-    margin-bottom: 3.25rem;
-  }
-
+  /* ── Section title ── */
   .section-title {
     font-family: var(--f-sans);
     font-size: 0.7rem;
@@ -217,6 +224,8 @@
     padding-bottom: 0.6rem;
     border-bottom: 1px solid var(--border);
   }
+
+  section { margin-bottom: 3.25rem; }
 
   /* ── Research interests ── */
   .interests {
@@ -236,8 +245,7 @@
 
   .interests li::before {
     content: '';
-    width: 5px;
-    height: 5px;
+    width: 5px; height: 5px;
     border-radius: 50%;
     background: var(--accent);
     flex-shrink: 0;
@@ -245,11 +253,7 @@
   }
 
   /* ── Education ── */
-  .edu-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1.1rem;
-  }
+  .edu-list { display: flex; flex-direction: column; gap: 1.1rem; }
 
   .edu-item {
     display: grid;
@@ -262,30 +266,46 @@
     font-size: 0.8rem;
     color: var(--muted);
     font-variant-numeric: tabular-nums;
-    padding-top: 0.05em;
   }
 
-  .edu-body {}
+  .edu-degree { font-size: 0.9375rem; color: var(--text); font-weight: 500; }
+  .edu-inst   { font-size: 0.875rem;  color: var(--muted); }
 
-  .edu-degree {
-    font-size: 0.9375rem;
-    color: var(--text);
+  /* ── Research page ── */
+  .research-list { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--border); }
+
+  .research-item {
+    display: grid;
+    grid-template-columns: 10rem 1fr;
+    gap: 0 2rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+
+  .research-tag {
+    font-size: 0.68rem;
     font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding-top: 0.2rem;
+    line-height: 1.4;
   }
 
-  .edu-inst {
-    font-size: 0.875rem;
-    color: var(--muted);
+  .research-title {
+    font-family: var(--f-serif);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.45rem;
+    line-height: 1.3;
   }
+
+  .research-desc { font-size: 0.9rem; color: var(--muted); max-width: 52ch; }
 
   /* ── Publications ── */
-  .pub-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1.6rem;
-  }
-
-  .pub-item {}
+  .pub-list { display: flex; flex-direction: column; gap: 1.75rem; }
 
   .pub-badge {
     display: inline-block;
@@ -298,12 +318,9 @@
     padding: 0.15em 0.55em 0.12em;
     border-radius: 2px;
     margin-bottom: 0.45rem;
-    vertical-align: middle;
   }
 
-  .pub-badge.review {
-    background: var(--muted);
-  }
+  .pub-badge.review { background: var(--muted); }
 
   .pub-title {
     font-family: var(--f-serif);
@@ -315,25 +332,12 @@
     margin-bottom: 0.3rem;
   }
 
-  .pub-authors {
-    font-size: 0.85rem;
-    color: var(--muted);
-    margin-bottom: 0.2rem;
-  }
-
-  .pub-journal {
-    font-size: 0.85rem;
-    color: var(--muted);
-  }
-
+  .pub-authors { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.2rem; }
+  .pub-journal { font-size: 0.85rem; color: var(--muted); }
   .pub-journal em { font-style: italic; }
 
   /* ── Contact ── */
-  .contact-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-  }
+  .contact-list { display: flex; flex-direction: column; gap: 0.6rem; }
 
   .contact-row {
     display: flex;
@@ -352,144 +356,198 @@
 
   /* ── Footer ── */
   footer {
-    margin-top: 5rem;
-    padding-top: 1.5rem;
     border-top: 1px solid var(--border);
+    padding: 1.5rem 2rem;
     font-size: 0.78rem;
     color: var(--muted);
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 0.5rem;
+    max-width: 780px;
+    margin: 0 auto;
   }
 
   /* ── Focus ── */
-  :focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 3px;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-  }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
   /* ── Mobile ── */
   @media (max-width: 560px) {
     nav { padding: 0 1.1rem; }
     .nav-links { gap: 1rem; }
-    .page { padding: 2.5rem 1.1rem 5rem; }
-    .hero {
-      grid-template-columns: 1fr;
-      gap: 1.75rem;
-    }
+    .page-view { padding: 2.5rem 1.1rem 5rem; }
+    .hero { grid-template-columns: 1fr; gap: 1.75rem; }
     .photo-wrap { justify-content: flex-start; }
     .edu-item { grid-template-columns: 3.75rem 1fr; }
+    .research-item { grid-template-columns: 1fr; gap: 0.5rem; }
   }
 </style>
 
 <!-- ── Navigation ── -->
 <nav>
-  <span class="nav-name">Chenxi Feng</span>
+  <a class="nav-name" href="#about" data-page="about">Chenxi Feng</a>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#research">Research</a></li>
-    <li><a href="#publications">Publications</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <!-- Replace # with the path to your CV PDF, e.g. href="cv.pdf" -->
-    <li><a class="nav-cv" href="#">CV</a></li>
+    <li><a href="#about"        data-page="about">About</a></li>
+    <li><a href="#research"     data-page="research">Research</a></li>
+    <li><a href="#publications" data-page="publications">Publications</a></li>
+    <li><a href="#contact"      data-page="contact">Contact</a></li>
+    <li><a class="nav-cv" href="cv.pdf" target="_blank">CV</a></li>
   </ul>
 </nav>
 
-<main class="page">
+<!-- ══════════════════════════════════════
+     PAGE: ABOUT
+════════════════════════════════════════ -->
+<div class="page-view active" id="page-about">
 
-  <!-- ── Hero ── -->
-  <div class="hero" id="about">
-
+  <div class="hero">
     <div class="hero-text">
       <h1>Chenxi Feng</h1>
-      <!-- Replace with your title, department, and institution -->
-      <p class="hero-affil">Ph.D. Candidate · Department of Soil &amp; Crop Sciences · Cornell University</p>
+      <p class="hero-affil">Ph.D. Student · Soil &amp; Crop Sciences · Cornell University</p>
 
       <p class="hero-bio">
-        I am a soil ecologist and biogeochemist studying how soil organic carbon is decomposed, stabilized, and returned to the atmosphere — and what that means for our climate future. My work spans field measurements, laboratory incubations, process-based modeling, and global-scale data synthesis.
+        I am a climate scientist, studying how carbon is cycled between multi-spheres and what that means for the future climates. My work spans environmental database development, process-based modeling, AI-guided data-model fusion, and remote sensing-based earth observations.
       </p>
 
       <div class="hero-links">
-        <!-- Replace the href values with your real profiles -->
-        <a href="mailto:fchenxi369@gmail.com">
+        <a href="mailto:cf545@cornell.edu">
           <svg viewBox="0 0 20 20"><path d="M2 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4zm2 0v.01L10 9l6-4.99V4H4zm0 2.24V16h12V6.24l-6 4.99-6-4.99z"/></svg>
-          fchenxi369@gmail.com
+          cf545@cornell.edu
         </a>
         <a href="https://scholar.google.com/citations?user=YOUR_PROFILE_ID" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24"><path d="M5.242 13.769L0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.977 0-5.548 1.748-6.758 4.269zM12 10a7 7 0 1 0 0 14 7 7 0 0 0 0-14z"/></svg>
           Google Scholar
         </a>
-        <a href="https://github.com/YOUR_USERNAME" target="_blank" rel="noopener">
+        <a href="https://github.com/fcxee" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.373 0 12c0 5.303 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.929.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
           GitHub
         </a>
-        <a href="https://orcid.org/0000-0000-0000-0000" target="_blank" rel="noopener">
+        <a href="https://orcid.org/0009-0001-4117-8310" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24"><path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zM7.369 4.378c.525 0 .947.431.947.947s-.422.947-.947.947a.95.95 0 0 1-.947-.947c0-.516.422-.947.947-.947zm-.722 3.038h1.444v10.041H6.647V7.416zm3.562 0h3.9c3.712 0 5.344 2.653 5.344 5.025 0 2.578-2.016 5.016-5.325 5.016h-3.919V7.416zm1.444 1.303v7.444h2.297c3.272 0 3.872-2.203 3.872-3.722 0-2.016-1.284-3.722-3.872-3.722h-2.297z"/></svg>
           ORCID
+        </a>
+        <a href="https://www.linkedin.com/in/chenxi-feng-01a5aa337/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://www.researchgate.net/profile/Chenxi-Feng-4" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M19.586 0c-.818 0-1.508.19-2.073.565-.563.377-.97.936-1.213 1.68a12.049 12.049 0 0 0-.195 1.277 74.5 74.5 0 0 0-.105 1.91L15.8 6.326c-.37 6.412-5.243 9.294-5.243 9.294H7.591V9.514s2.787-.616 4.423-3.04c-.023.002-1.543.002-1.543.002L7.591 9.514V6.476H3.911v9.144h-.003v2.123h3.683v.001h3.583c3.14-.002 6.118-2.054 7.116-4.823h.001v4.816h3.705V.005L19.586 0zm0 17.737V1.263h.003l1.74.001v16.475l-1.743-.002zM6.088 15.62H5.65v-1.384h.44c.476 0 .792.238.792.686s-.326.698-.794.698zm1.482-.7c0-.962-.693-1.567-1.757-1.567H4.903v3.156h.747v-1.016h.199l.85 1.016h.902l-.995-1.095c.6-.196.964-.695.964-1.494zm-.4 2.574H5.523v3.154h.756v-1.037h.892v-.676h-.892v-.767h1.037l-.146-.674zm5.386 3.155h-1.12l-.93-1.187v1.187h-.755v-3.154h1.113c.897 0 1.41.48 1.41 1.215 0 .566-.33.973-.862 1.108l1.144 1.831zm-1.812-1.753h.211c.366 0 .624-.19.624-.545 0-.364-.27-.542-.64-.542h-.195v1.087zM9.843 6.477l2.88-2.879-2.88-.001v2.88zm6.204 2.017l-3.327-3.327V6.48h3.327zm-3.327 1.02v3.327l3.327-3.327h-3.327z"/></svg>
+          ResearchGate
         </a>
       </div>
     </div>
 
-    <!-- Photo: replace photo.jpg with your actual image file -->
-    <!-- If you don't have a photo yet, the placeholder initial shows instead -->
     <div class="photo-wrap">
-      <div class="photo" id="photo-container">
-        <span class="photo-placeholder" id="photo-placeholder">C</span>
-        <img id="photo-img" src="photo.jpg" alt="Chenxi Feng"
-          style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;"
-          onload="this.style.display='block';document.getElementById('photo-placeholder').style.display='none';"
-          onerror="this.style.display='none';">
+      <div class="photo">
+        <span class="photo-placeholder" id="photo-placeholder" style="display:none">C</span>
+        <img src="data:image/jpeg;base64,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" alt="Chenxi Feng"
+          style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
       </div>
     </div>
-
   </div>
 
-  <!-- ── Research Interests ── -->
-  <section id="research">
+  <section>
     <h2 class="section-title">Research Interests</h2>
     <ul class="interests">
-      <li>Temperature sensitivity of soil organic carbon decomposition and its global variability</li>
-      <li>Microbial carbon use efficiency, MAOC formation, and organic matter stabilization</li>
-      <li>Soil carbon feedbacks in Earth system models: parameterization and uncertainty quantification</li>
-      <li>Process-based modeling and global data synthesis across ecosystem and climate gradients</li>
+      <li>Climatology sensitivity of soil organic carbon loss</li>
+      <li>Quantification of terrestrial ecosystem carbon emission inventories</li>
+      <li>AI-guided data-model fusion via process-based modeling</li>
+      <li>Observations and modeling of atmospheric greenhouse gases and aerosols</li>
     </ul>
   </section>
 
-  <!-- ── Education ── -->
-  <section id="education">
+  <section>
     <h2 class="section-title">Education</h2>
     <div class="edu-list">
-      <!-- Replace with your actual degrees, institutions, and years -->
       <div class="edu-item">
-        <span class="edu-year">present</span>
-        <div class="edu-body">
+        <span class="edu-year">2024–present</span>
+        <div>
           <p class="edu-degree">Ph.D., Soil &amp; Crop Sciences</p>
           <p class="edu-inst">Cornell University</p>
         </div>
       </div>
       <div class="edu-item">
-        <span class="edu-year">20XX</span>
-        <div class="edu-body">
-          <p class="edu-degree">B.S., [Your Undergraduate Major]</p>
-          <p class="edu-inst">[Your Undergraduate Institution]</p>
+        <span class="edu-year">2020–2024</span>
+        <div>
+          <p class="edu-degree">B.S., Atmospheric Sciences</p>
+          <p class="edu-inst">Nanjing University</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ── Publications & Work ── -->
-  <section id="publications">
+</div><!-- /page-about -->
+
+
+<!-- ══════════════════════════════════════
+     PAGE: RESEARCH
+════════════════════════════════════════ -->
+<div class="page-view" id="page-research">
+
+  <section>
+    <h2 class="section-title">Research</h2>
+    <p style="color:var(--muted); margin-bottom:2.5rem; max-width:55ch;">
+      My research links microbial ecology to global biogeochemistry through the lens of temperature — asking how warming reshapes the organisms that decompose soil carbon, and how those changes feed back to the climate system.
+    </p>
+
+    <div class="research-list">
+      <div class="research-item">
+        <span class="research-tag">Carbon Dynamics</span>
+        <div>
+          <h3 class="research-title">Temperature Sensitivity of SOC Decomposition</h3>
+          <p class="research-desc">
+            How strongly does decomposition respond to warming — and why does that sensitivity differ across soils, depths, and climates? I combine incubation experiments with Arrhenius-based and enzyme-kinetic frameworks to resolve the drivers of intrinsic Q₁₀ variability at the global scale.
+          </p>
+        </div>
+      </div>
+
+      <div class="research-item">
+        <span class="research-tag">Microbial Ecology</span>
+        <div>
+          <h3 class="research-title">Microbial Carbon Use Efficiency &amp; Stabilization</h3>
+          <p class="research-desc">
+            The proportion of carbon that microbes retain versus respire — carbon use efficiency — controls how much organic matter persists as mineral-associated organic carbon (MAOC). I investigate how warming, substrate quality, and community composition shift CUE, and how homeoviscous adaptation modulates microbial responses over time.
+          </p>
+        </div>
+      </div>
+
+      <div class="research-item">
+        <span class="research-tag">Climate Modeling</span>
+        <div>
+          <h3 class="research-title">Soil Carbon Feedbacks in Earth System Models</h3>
+          <p class="research-desc">
+            A substantial fraction of uncertainty in future SOC projections traces back to how ESMs parameterize temperature sensitivity. Through global data synthesis and sensitivity analysis, I work to quantify that uncertainty and evaluate how alternative model structures alter long-term climate feedback estimates.
+          </p>
+        </div>
+      </div>
+
+      <div class="research-item">
+        <span class="research-tag">Methods</span>
+        <div>
+          <h3 class="research-title">Approaches &amp; Techniques</h3>
+          <p class="research-desc">
+            Field soil sampling across ecosystem gradients · Laboratory incubation experiments · Process-based and enzyme-kinetic modeling · Global-scale data synthesis and meta-analysis · Sobol sensitivity analysis · Earth system model evaluation
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /page-research -->
+
+
+<!-- ══════════════════════════════════════
+     PAGE: PUBLICATIONS
+════════════════════════════════════════ -->
+<div class="page-view" id="page-publications">
+
+  <section>
     <h2 class="section-title">Publications</h2>
     <div class="pub-list">
 
       <div class="pub-item">
         <span class="pub-badge">In prep.</span>
-        <p class="pub-title">Global Convergence in Temperature Resonses of Microbial Respiratory Soil Organic Carbon Loss</p>
+        <p class="pub-title">Global Convergence in Temperature Responses of Microbial Respiratory Soil Organic Carbon Loss</p>
         <p class="pub-authors">Feng et al.</p>
         <p class="pub-journal"><em>In preparation</em> · 2026</p>
       </div>
@@ -497,8 +555,8 @@
       <div class="pub-item">
         <span class="pub-badge">Synthesis</span>
         <p class="pub-title">Attributing Soil Carbon Projection Uncertainty to ESM Temperature Sensitivity Functions</p>
-        <p class="pub-authors">Chenxi</p>
-        <p class="pub-journal">Literature synthesis drawing on Todd-Brown et al. (2013–2018), Huang et al. (2018), Varney et al. (2020, 2024)</p>
+        <p class="pub-authors">Chenxi Feng</p>
+        <p class="pub-journal">Literature synthesis · Todd-Brown et al. (2013–2018), Huang et al. (2018), Varney et al. (2020, 2024)</p>
       </div>
 
       <div class="pub-item">
@@ -511,13 +569,23 @@
     </div>
   </section>
 
-  <!-- ── Contact ── -->
-  <section id="contact">
+</div><!-- /page-publications -->
+
+
+<!-- ══════════════════════════════════════
+     PAGE: CONTACT
+════════════════════════════════════════ -->
+<div class="page-view" id="page-contact">
+
+  <section>
     <h2 class="section-title">Contact</h2>
+    <p style="color:var(--muted); margin-bottom:2rem; max-width:52ch;">
+      I welcome inquiries about collaboration, data sharing, or research discussions — particularly on soil carbon cycling, ESM benchmarking, and field-to-model integration.
+    </p>
     <div class="contact-list">
       <div class="contact-row">
         <span class="contact-key">Email</span>
-        <a href="mailto:fchenxi369@gmail.com">fchenxi369@gmail.com</a>
+        <a href="mailto:cf545@cornell.edu">cf545@cornell.edu</a>
       </div>
       <div class="contact-row">
         <span class="contact-key">Google Scholar</span>
@@ -525,23 +593,74 @@
       </div>
       <div class="contact-row">
         <span class="contact-key">GitHub</span>
-        <a href="https://github.com/YOUR_USERNAME" target="_blank" rel="noopener">github.com/YOUR_USERNAME</a>
+        <a href="https://github.com/fcxee" target="_blank" rel="noopener">github.com/fcxee</a>
       </div>
       <div class="contact-row">
         <span class="contact-key">ORCID</span>
-        <a href="https://orcid.org/0000-0000-0000-0000" target="_blank" rel="noopener">0000-0000-0000-0000</a>
+        <a href="https://orcid.org/0009-0001-4117-8310" target="_blank" rel="noopener">0009-0001-4117-8310</a>
+      </div>
+      <div class="contact-row">
+        <span class="contact-key">LinkedIn</span>
+        <a href="https://www.linkedin.com/in/chenxi-feng-01a5aa337/" target="_blank" rel="noopener">linkedin.com/in/chenxi-feng-01a5aa337</a>
+      </div>
+      <div class="contact-row">
+        <span class="contact-key">ResearchGate</span>
+        <a href="https://www.researchgate.net/profile/Chenxi-Feng-4" target="_blank" rel="noopener">researchgate.net/profile/Chenxi-Feng-4</a>
       </div>
       <div class="contact-row">
         <span class="contact-key">Office</span>
-        <!-- Replace with your actual office address -->
-        <span style="color:var(--muted)">[Building, Room — Institution, City, State]</span>
+        <span style="color:var(--muted)">[Building, Room · Cornell University, Ithaca, NY]</span>
       </div>
     </div>
   </section>
 
-</main>
+</div><!-- /page-contact -->
 
 <footer>
-  <span>&copy; 2026 Chenxi</span>
+  <span>&copy; 2026 Chenxi Feng</span>
   <span>Built with GitHub Pages</span>
 </footer>
+
+<script>
+  const pages   = document.querySelectorAll('.page-view');
+  const navLinks = document.querySelectorAll('[data-page]');
+
+  function showPage(name) {
+    // Hide all pages
+    pages.forEach(p => p.classList.remove('active'));
+    navLinks.forEach(a => a.classList.remove('active'));
+
+    // Show requested page
+    const target = document.getElementById('page-' + name);
+    if (target) target.classList.add('active');
+
+    // Mark nav link active (skip CV button which has no data-page match)
+    navLinks.forEach(a => {
+      if (a.dataset.page === name) a.classList.add('active');
+    });
+
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+
+  // Handle nav clicks
+  navLinks.forEach(a => {
+    a.addEventListener('click', e => {
+      const page = a.dataset.page;
+      if (!page) return; // let CV link behave normally
+      e.preventDefault();
+      history.pushState({ page }, '', '#' + page);
+      showPage(page);
+    });
+  });
+
+  // Handle browser back/forward
+  window.addEventListener('popstate', e => {
+    const page = (e.state && e.state.page) || 'about';
+    showPage(page);
+  });
+
+  // On load: read hash from URL
+  const initialPage = (location.hash.replace('#', '')) || 'about';
+  showPage(initialPage);
+</script>

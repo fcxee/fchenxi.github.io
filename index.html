@@ -43,7 +43,7 @@
     background: var(--bg);
     color: var(--text);
     font-family: var(--f-sans);
-    font-size: 1.2rem;
+    font-size: 1.6rem;
     line-height: 1.7;
   }
 
@@ -66,7 +66,7 @@
 
   .nav-name {
     font-family: var(--f-serif);
-    font-size: 1.32rem;
+    font-size: 1.76rem;
     font-weight: 600;
     color: var(--text);
     cursor: pointer;
@@ -81,7 +81,7 @@
   }
 
   .nav-links a {
-    font-size: 0.975rem;
+    font-size: 1.3rem;
     color: var(--muted);
     transition: color 0.15s;
     cursor: pointer;
@@ -98,7 +98,7 @@
   }
 
   .nav-cv {
-    font-size: 0.9rem !important;
+    font-size: 1.2rem !important;
     border: 1px solid var(--accent);
     color: var(--accent) !important;
     padding: 0.3em 0.85em !important;
@@ -115,7 +115,7 @@
   /* ── Page views ── */
   .page-view {
     display: none;
-    max-width: 920px;
+    max-width: 1380px;
     margin: 0 auto;
     padding: 3rem 1.5rem 5rem;
     animation: fadein 0.18s ease;
@@ -135,15 +135,23 @@
   /* ── Hero (About page) ── */
   .hero {
     display: grid;
-    grid-template-columns: 1fr 240px;
+    grid-template-columns: 1fr 360px;
     gap: 2.5rem;
     align-items: start;
     margin-bottom: 4rem;
   }
 
+  .hero-text {
+    padding-left: 2rem;
+  }
+
+  #page-about > section {
+    padding-left: 2rem;
+  }
+
   .hero-text h1 {
     font-family: var(--f-serif);
-    font-size: 2.64rem;
+    font-size: 3.52rem;
     font-weight: 600;
     line-height: 1.2;
     margin-bottom: 0.35rem;
@@ -151,15 +159,14 @@
   }
 
   .hero-affil {
-    font-size: 1.05rem;
+    font-size: 1.4rem;
     color: var(--muted);
     margin-bottom: 1.25rem;
   }
 
   .hero-bio {
-    font-size: 1.125rem;
+    font-size: 1.5rem;
     color: var(--text);
-    max-width: 52ch;
     line-height: 1.75;
   }
 
@@ -171,7 +178,7 @@
   }
 
   .hero-links a {
-    font-size: 0.96rem;
+    font-size: 1.28rem;
     color: var(--muted);
     display: flex;
     align-items: center;
@@ -191,8 +198,8 @@
   .photo-wrap { display: flex; justify-content: flex-end; }
 
   .photo {
-    width: 240px;
-    height: 240px;
+    width: 360px;
+    height: 360px;
     border-radius: 50%;
     border: 3px solid var(--border);
     background: var(--bg-soft);
@@ -206,7 +213,7 @@
 
   .photo-placeholder {
     font-family: var(--f-serif);
-    font-size: 4.2rem;
+    font-size: 5.6rem;
     color: var(--border);
     user-select: none;
     line-height: 1;
@@ -215,7 +222,7 @@
   /* ── Section title ── */
   .section-title {
     font-family: var(--f-sans);
-    font-size: 0.84rem;
+    font-size: 2rem;
     font-weight: 500;
     letter-spacing: 0.16em;
     text-transform: uppercase;
@@ -239,7 +246,7 @@
     display: flex;
     align-items: baseline;
     gap: 0.6rem;
-    font-size: 1.125rem;
+    font-size: 1.5rem;
     color: var(--text);
   }
 
@@ -253,23 +260,31 @@
   }
 
   /* ── Education ── */
-  .edu-list { display: flex; flex-direction: column; gap: 1.1rem; }
+  .edu-list { display: flex; flex-direction: column; gap: 0.75rem; }
 
   .edu-item {
-    display: grid;
-    grid-template-columns: 4.5rem 1fr;
-    gap: 0 1.25rem;
+    display: flex;
     align-items: baseline;
+    gap: 0;
+    flex-wrap: wrap;
+  }
+
+  .edu-sep {
+    color: var(--border);
+    margin: 0 0.6rem;
+    font-weight: 300;
   }
 
   .edu-year {
-    font-size: 0.96rem;
+    font-size: 1.28rem;
     color: var(--muted);
     font-variant-numeric: tabular-nums;
+    white-space: nowrap;
   }
 
-  .edu-degree { font-size: 1.125rem; color: var(--text); font-weight: 500; }
-  .edu-inst   { font-size: 1.05rem;  color: var(--muted); }
+  .edu-degree { font-size: 1.4rem; color: var(--text); font-weight: 500; }
+  .edu-major  { font-size: 1.4rem; color: var(--text); }
+  .edu-inst   { font-size: 1.4rem; color: var(--muted); }
 
   /* ── Research page ── */
   .research-list { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--border); }
@@ -284,7 +299,7 @@
   }
 
   .research-tag {
-    font-size: 0.816rem;
+    font-size: 1.088rem;
     font-weight: 500;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -295,21 +310,21 @@
 
   .research-title {
     font-family: var(--f-serif);
-    font-size: 1.38rem;
+    font-size: 1.84rem;
     font-weight: 600;
     color: var(--text);
     margin-bottom: 0.45rem;
     line-height: 1.3;
   }
 
-  .research-desc { font-size: 1.08rem; color: var(--muted); max-width: 52ch; }
+  .research-desc { font-size: 1.44rem; color: var(--muted); }
 
   /* ── Publications & Presentations ── */
   .pub-table { width: 100%; border-collapse: collapse; }
   .pub-table td { vertical-align: top; padding: 0.6rem 0; border-bottom: 1px solid var(--border); }
   .pub-table tr:last-child td { border-bottom: none; }
   .pub-year {
-    font-size: 0.984rem;
+    font-size: 1.312rem;
     font-weight: 600;
     color: var(--muted);
     white-space: nowrap;
@@ -317,13 +332,13 @@
     width: 3.2rem;
     letter-spacing: 0.03em;
   }
-  .pub-body { font-size: 1.08rem; line-height: 1.55; color: var(--text); }
+  .pub-body { font-size: 1.44rem; line-height: 1.55; color: var(--text); }
   .pub-body em { font-style: italic; }
   .pub-body strong { font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
   .pub-doi {
     display: inline-block;
     margin-top: 0.25rem;
-    font-size: 0.936rem;
+    font-size: 1.248rem;
     color: var(--accent);
     text-decoration: none;
     word-break: break-all;
@@ -331,7 +346,7 @@
   .pub-doi:hover { text-decoration: underline; }
   .pub-status {
     display: inline-block;
-    font-size: 0.78rem;
+    font-size: 1.04rem;
     font-weight: 500;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -342,7 +357,7 @@
     margin-left: 0.4rem;
     vertical-align: middle;
   }
-  .pub-note { font-size: 0.984rem; color: var(--muted); margin-top: 0.1rem; font-style: italic; }
+  .pub-note { font-size: 1.312rem; color: var(--muted); margin-top: 0.1rem; font-style: italic; }
 
   /* ── Contact ── */
   .contact-list { display: flex; flex-direction: column; gap: 0.6rem; }
@@ -351,11 +366,11 @@
     display: flex;
     align-items: baseline;
     gap: 0.75rem;
-    font-size: 1.08rem;
+    font-size: 1.44rem;
   }
 
   .contact-key {
-    font-size: 0.9rem;
+    font-size: 1.2rem;
     font-weight: 500;
     color: var(--muted);
     min-width: 5.5rem;
@@ -366,13 +381,13 @@
   footer {
     border-top: 1px solid var(--border);
     padding: 1.5rem 2rem;
-    font-size: 0.936rem;
+    font-size: 1.248rem;
     color: var(--muted);
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 0.5rem;
-    max-width: 920px;
+    max-width: 1380px;
     margin: 0 auto;
   }
 
@@ -415,8 +430,7 @@
       <p class="hero-affil">Ph.D. Student · <a href="https://cals.cornell.edu/school-integrative-plant-science/school-sections/sips-soil-crop-sciences-section" target="_blank" rel="noopener">Soil &amp; Crop Sciences</a> · Cornell University</p>
 
       <p class="hero-bio" style="margin-bottom: 0.5em;">
-        Hello! I'm a climate scientist, studying how carbon is cycled between multi-spheres and what that means for the future climates. My work spans environmental database development, process-based modeling, AI-guided data-model fusion, and remote sensing-based earth observations.
-        
+        Hello! I'm a climate scientist, working on multi-source data synthesis, process-based modeling, and machine learning–driven data–model fusion. Through these methodology, I aim to better understand and predict climate risks and opportunities, with implications for carbon accounting, nature-based climate solutions, and Earth system projections.
       </p>
       <p class="hero-bio">
         I'm currently a Ph.D. student at Cornell University majored in Soil &amp; Crop Sciences, working with <a href="https://ecolab.cals.cornell.edu/?member_info&amp;id=52" target="_blank" rel="noopener">Prof. Yiqi Luo</a>. I graduated from Nanjing University in 2024 with a B.S. in Atmospheric Sciences.
@@ -473,18 +487,14 @@
     <h2 class="section-title">Education</h2>
     <div class="edu-list">
       <div class="edu-item">
-        <span class="edu-year">2024–present</span>
-        <div>
-          <p class="edu-degree">Ph.D., Soil &amp; Crop Sciences</p>
-          <p class="edu-inst">Cornell University</p>
-        </div>
+        <span class="edu-year">2024–Present</span>
+        <span class="edu-sep">·</span>
+        <span class="edu-degree">Ph.D. in Soil &amp; Crop Sciences, Cornell University</span>
       </div>
       <div class="edu-item">
         <span class="edu-year">2020–2024</span>
-        <div>
-          <p class="edu-degree">B.S., Atmospheric Sciences</p>
-          <p class="edu-inst">Nanjing University</p>
-        </div>
+        <span class="edu-sep">·</span>
+        <span class="edu-degree">B.S. in Atmospheric Sciences, Nanjing University</span>
       </div>
     </div>
   </section>
@@ -499,9 +509,6 @@
 
   <section>
     <h2 class="section-title">Research</h2>
-    <p style="color:var(--muted); margin-bottom:2.5rem; max-width:55ch;">
-      My research bridges critical gaps in the global carbon budget by integrating atmospheric and biogeochemical perspectives. Through multi-source data synthesis, process-based modeling, and machine learning–driven data–model fusion, I aim to better understand and predict climate risks and opportunities — with implications for carbon accounting, nature-based climate solutions, and Earth system projections.
-    </p>
 
     <div class="research-list">
       <div class="research-item">
@@ -556,7 +563,7 @@
 
   <section>
     <h2 class="section-title">Publications</h2>
-    <p style="font-size: 0.984rem;color:var(--muted);margin-bottom:1rem;">(*: Co-first author)</p>
+    <p style="font-size: 1.312rem;color:var(--muted);margin-bottom:1rem;">(*: Co-first author)</p>
     <table class="pub-table">
       <tbody>
 

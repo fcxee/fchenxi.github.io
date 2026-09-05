@@ -452,18 +452,49 @@
   :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
   /* ── Mobile ── */
+    /* Hamburger button — hidden on desktop */
+  .hamburger {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.6rem;
+    color: var(--text);
+    cursor: pointer;
+    padding: 0.2rem 0.4rem;
+    line-height: 1;
+  }
+
   @media (max-width: 560px) {
     nav {
       padding: 0 1rem;
       height: auto;
       flex-wrap: wrap;
       gap: 0.5rem;
-      padding-top: 0.6rem;
-      padding-bottom: 0.6rem;
+      padding-top: 0.7rem;
+      padding-bottom: 0.7rem;
+      position: relative;
     }
-    .nav-links { gap: 0.75rem; flex-wrap: wrap; }
-    .nav-links a { font-size: 1.1rem; }
+    .hamburger { display: block; }
     .nav-name { font-size: 1.4rem; }
+
+    /* Nav links hidden by default on mobile, shown when open */
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      gap: 0;
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      margin-top: 0.4rem;
+      padding: 0.5rem 0;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links li { width: 100%; }
+    .nav-links a {
+      display: block;
+      padding: 0.6rem 0.5rem;
+      font-size: 1.15rem;
+    }
 
     .page-view { padding: 2rem 1rem 4rem; }
 
@@ -591,7 +622,8 @@
 <!-- ── Navigation ── -->
 <nav>
   <a class="nav-name" href="#about" data-page="about">Chenxi Feng</a>
-  <ul class="nav-links">
+  <button class="hamburger" id="hamburger" aria-label="Menu" onclick="toggleMenu()">&#9776;</button>
+  <ul class="nav-links" id="nav-links">
     <li><a href="#about"        data-page="about">About</a></li>
     <li><a href="#research"     data-page="research">Research</a></li>
     <li><a href="#publications" data-page="publications">Publications</a></li>
@@ -916,10 +948,18 @@
 </footer>
 
 <script>
+  function toggleMenu() {
+    const nl = document.getElementById('nav-links');
+    nl.classList.toggle('open');
+  }
+
   const pages   = document.querySelectorAll('.page-view');
   const navLinks = document.querySelectorAll('[data-page]');
 
   function showPage(name) {
+    // Close mobile menu if open
+    const nl = document.getElementById('nav-links');
+    if (nl) nl.classList.remove('open');
     // Hide all pages
     pages.forEach(p => p.classList.remove('active'));
     navLinks.forEach(a => a.classList.remove('active'));
